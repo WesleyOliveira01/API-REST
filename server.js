@@ -1,18 +1,8 @@
-const http = require("http");
-const porta = 4000
+import app from "./src/app.js";
 
-const rotas = {
-    '/':'curso de node',
-    '/livros':'entrei na pagina de livros',
-    '/autores':'listagem de autores',
-    "/sobre":"sobre o curso"
-}
+const porta = process.env.PORT || 4000;
 
-const server = http.createServer((req,res) => {
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end(rotas[req.url]);
-})
 
-server.listen(porta,() => {
-    console.log(`API rodando em http://localhost:${porta}`);
+app.listen(porta, () => {
+  console.log(`API rodando em http://localhost:${porta}`);
 });
