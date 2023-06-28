@@ -1,4 +1,10 @@
 import express from "express";
+import db from "./config/dbConnect.js";
+
+db.on("error", console.log.bind(console,"erro de conexão: "))
+db.once("open", () => {
+  console.log("conexão com o banco realizada com sucesso");
+})
 
 const app = express();
 
@@ -30,10 +36,14 @@ app.post("/livros", (req, res) => {
 
 app.put("/livros/:id", (req, res) => {
   let id = achaLivro(req.params.id);
- 
   livros[id].nome = req.body.nome
-
   res.json(livros);
+});
+
+app.delete("/livros/:id", (req, res) => {
+  let id = achaLivro(req.params.id);
+  livros.splice(id, 1);
+  res.send("livro excluido")
 });
 
 export default app;
